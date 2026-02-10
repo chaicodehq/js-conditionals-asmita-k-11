@@ -24,11 +24,36 @@
  * Example:
  *   calculateTip(50, 4)
  *   → { tipPercentage: 20, tipAmount: 10.00, totalAmount: 60.00 }
- *
+ *10
  * @param {number} billAmount - The bill amount in dollars
  * @param {number} serviceRating - Service rating from 1 to 5
  * @returns {{ tipPercentage: number, tipAmount: number, totalAmount: number } | null}
  */
 export function calculateTip(billAmount, serviceRating) {
-  // Your code here
+  if (billAmount <= 0 ||
+    serviceRating < 1 ||
+    serviceRating > 5 ||
+    !Number.isInteger(serviceRating)
+  ) return null;
+
+  let tipPercentage;
+
+  if(serviceRating === 1) tipPercentage = 5;
+
+  else if(serviceRating === 2) tipPercentage = 10;
+  
+  else if(serviceRating === 3) tipPercentage = 15;
+
+  else if(serviceRating === 4) tipPercentage = 20;
+
+  else if(serviceRating === 5) tipPercentage = 25;
+
+  const tipAmount = Number((billAmount * tipPercentage / 100).toFixed(2));
+  const totalAmount = Number((billAmount + tipAmount).toFixed(2));
+
+  return {
+    tipPercentage: tipPercentage,
+    tipAmount: tipAmount,
+    totalAmount: totalAmount
+  };
 }
